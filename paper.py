@@ -7,14 +7,24 @@ class PDF(FPDF):
     def __init__(self, seed=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.q_num = 0  # Make a part of init
-        self.skip_header = False
+        self._x_indent = 10
+
+        self.q_num = 0  
 
         if seed == None:
             self.seed = np.random.randint(100_000, 1_000_000)
+        else:
+            self.seed = seed
+        self.rng = np.random.default_rng(self.seed)
 
-        self.rng = np.random.default_rng(seed)
-        print(self.seed)
+    def indent(self, behaviour=None):
+        match behaviour:
+            case "u":
+                self._x_indent = self.x
+            case "r":
+                self._x_indent = self.l_margin
+
+        return self._x_indent
 
     def add_cover(self):
         self.skip_header = True
@@ -52,6 +62,11 @@ class PDF(FPDF):
         self.cell(0, 10, f"{self.seed}", align='C')
         self.set_char_spacing(0)
 
+    def ln(self, *args, **kwargs):
+        super().ln(*args, **kwargs)
+
+        self.set_x(self.indent())
+
     @staticmethod
     def continuous(function):
         def wrapper(self, *args, **kwargs):
@@ -75,8 +90,10 @@ class PDF(FPDF):
 
         self.set_font("helvetica", "B", 18)
         self.cell(self.get_string_width(str(self.q_num)) + 10, 10, str(self.q_num))
- 
+
+        self.indent("u")
         func(self, **func_params)
+        self.indent("r")
 
         if d_line:
             self.ln(10)
@@ -110,8 +127,12 @@ class PDF(FPDF):
 
         self.ln(10)
 
-def addition(pdf, *, n1=3, n2=5):
-    i_x = pdf.x 
+def addition(pdf, n1=None, n2=None):
+    if n1 == None:
+        n1 = pdf.rng.integers(2, 20)
+
+    if n2 == None:
+        n2 = pdf.rng.integers(2, 20)
 
     pdf.set_font("helvetica", "", 18)
     q = f"What is {n1}+{n2}?"
@@ -119,7 +140,6 @@ def addition(pdf, *, n1=3, n2=5):
     pdf.cell(pdf.get_string_width(q), 10, q)
     
     pdf.ln(10)
-    pdf.set_x(i_x)
 
     pdf.cell(50, 10, "You must show all your workings")
 
