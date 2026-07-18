@@ -4,9 +4,34 @@ import numpy as np
 import copy
 
 class PDF(FPDF):
-    q_num = 0  # Make a part of init
+    def __init__(self, seed=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.q_num = 0  # Make a part of init
+        self.skip_header = False
+
+        if seed == None:
+            self.seed = np.random.randint(100_000, 1_000_000)
+
+        self.rng = np.random.default_rng(seed)
+        print(self.seed)
+
+    def add_cover(self):
+        self.skip_header = True
+        self.add_page()
+        self.skip_header = False
+
+        self.set_font("Helvetica", "", 30)
+        self.multi_cell(0, 20, "This is a cover")
+
+        self.ln(10)
+        
+        self.add_page()
 
     def header(self):
+        if self.skip_header == True:
+            return
+
         x = self.l_margin - 5
         y = self.t_margin - 5
         w = self.w - self.l_margin - self.r_margin + 10
@@ -17,6 +42,16 @@ class PDF(FPDF):
         self.set_line_width(1)
         self.rect(x, y, w, h, round_corners=True, corner_radius=5)
 
+        self.set_xy(self.l_margin, self.t_margin)
+
+    def footer(self):
+        self.set_y(-15)
+        self.set_font("times", "", 12)
+
+        self.set_char_spacing(5)
+        self.cell(0, 10, f"{self.seed}", align='C')
+        self.set_char_spacing(0)
+
     @staticmethod
     def continuous(function):
         def wrapper(self, *args, **kwargs):
@@ -25,7 +60,7 @@ class PDF(FPDF):
             # Missing Code
             function(temp_pdf, *args, **kwargs)
 
-            if temp_pdf.page_no() != 1:
+            if temp_pdf.page_no() != self.page_no():
                 print("Page added")
                 self.add_page()
             else:
@@ -90,11 +125,13 @@ def addition(pdf, *, n1=3, n2=5):
 
     pdf.ln(50)
 
-worksheet = PDF()
-worksheet.add_page()
+if __name__ == "__main__":
+    worksheet = PDF()
+    worksheet.add_cover()
+    worksheet.write_question(addition, 2, func_params={"n1": 1})
+    worksheet.write_question(addition, 2)
+    worksheet.write_question(addition, 2)
+    worksheet.write_question(addition, 2)
+    worksheet.write_question(addition, 2)
 
-worksheet.write_question(addition, 2, func_params={"n1": 1})
-worksheet.write_question(addition, 2)
-worksheet.write_question(addition, 2)
-
-worksheet.output("output/test.pdf")
+    worksheet.output("output/test.pdf")
