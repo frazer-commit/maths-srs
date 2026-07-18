@@ -86,4 +86,4 @@ worksheet.write_question(addition, 2, func_params={"n1": 1})
 worksheet.write_question(addition, 2)
 worksheet.write_question(addition, 2)
 
-worksheet.output("meth.pdf")
+worksheet.output("output/test.pdf")
