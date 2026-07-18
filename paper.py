@@ -6,6 +6,17 @@ import copy
 class PDF(FPDF):
     q_num = 0  # Make a part of init
 
+    def header(self):
+        x = self.l_margin - 5
+        y = self.t_margin - 5
+        w = self.w - self.l_margin - self.r_margin + 10
+        h = self.h - self.t_margin - self.b_margin + 10
+
+
+        self.set_draw_color(0, 0, 0)
+        self.set_line_width(1)
+        self.rect(x, y, w, h, round_corners=True, corner_radius=5)
+
     @staticmethod
     def continuous(function):
         def wrapper(self, *args, **kwargs):
