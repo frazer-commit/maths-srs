@@ -8,7 +8,7 @@ class PDF(FPDF):
         super().__init__(*args, **kwargs)
         
         self._x_indent = 10
-
+        self.skip_header = False
         self.q_num = 0  
 
         if seed == None:
@@ -127,23 +127,6 @@ class PDF(FPDF):
 
         self.ln(10)
 
-def addition(pdf, n1=None, n2=None):
-    if n1 == None:
-        n1 = pdf.rng.integers(2, 20)
-
-    if n2 == None:
-        n2 = pdf.rng.integers(2, 20)
-
-    pdf.set_font("helvetica", "", 18)
-    q = f"What is {n1}+{n2}?"
-
-    pdf.cell(pdf.get_string_width(q), 10, q)
-    
-    pdf.ln(10)
-
-    pdf.cell(50, 10, "You must show all your workings")
-
-    pdf.ln(50)
 
 if __name__ == "__main__":
     worksheet = PDF()
