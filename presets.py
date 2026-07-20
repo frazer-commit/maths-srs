@@ -1,14 +1,4 @@
-from pdf import PDF
-
-# Some day use Pandas for this
-
-REGISTRY = {}
-
-def register(name):
-    def wrapper(func):
-        REGISTRY[name] = func
-        return func
-    return wrapper
+import matplotlib.pyplot as plt
 
 @register("addition")
 def addition(pdf, n1=None, n2=None):
@@ -30,10 +20,4 @@ def addition(pdf, n1=None, n2=None):
 
 
 if __name__ == "__main__":
-    worksheet = PDF()
-    worksheet.add_page()
-    worksheet.set_font("helvetica", "", 14)
-    
-    REGISTRY["addition"](worksheet)
-
-    worksheet.output("output/preset.pdf")
+    pass
