@@ -91,6 +91,8 @@ class PDF(FPDF):
         self.set_font("helvetica", "B", 18)
         self.cell(self.get_string_width(str(self.q_num)) + 10, 10, str(self.q_num))
 
+        self.set_font("helvetica", "", 18)
+
         self.indent("u")
         func(self, **func_params)
         self.indent("r")
