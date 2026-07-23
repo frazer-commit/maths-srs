@@ -13,7 +13,7 @@ class Paper(FPDF):
 
         # Seed Generation
         if seed == None:
-            self.seed = np.random.randint(100_000, 1_000_000)
+            self.seed = gen_seed()
         else:
             self.seed = seed
 
@@ -161,5 +161,7 @@ def gen_seed():
 
 if __name__ == "__main__":
     test = Pair("output/QP.pdf", "output/MS.pdf")
+    
+    print(test.QP.rng.integers(1, 10))
 
     test.output()
