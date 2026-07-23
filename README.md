@@ -59,4 +59,4 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
 
 ## AI Note
 
-All code was written by **myself**. Generative AI was used **soley** for code suggestions and bug finding.
+All code was written by **myself**. Generative AI was used **solely** for code suggestions and bug finding.
