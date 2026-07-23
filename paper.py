@@ -28,14 +28,14 @@ class Paper(FPDF):
 
         return self._x_indent
 
-    def add_cover(self):
+    def add_cover(self, title):
         # TODO: Add skip_header paramater to add_page
         self.skip_header = True  # Ensures border isn't generated
         self.add_page()
         self.skip_header = False
 
         self.set_font("Helvetica", "", 30)
-        self.multi_cell(0, 20, "This is a cover")
+        self.multi_cell(0, 20, title)
 
         self.ln(10)
         
@@ -86,6 +86,7 @@ class Paper(FPDF):
 
     @continuous 
     def write_question(self, func, marks, d_line=True, func_params={}):
+        # TODO: Move marks and dotted line behavior into question class
         self.q_num += 1
 
         # Write quesiton number
@@ -133,9 +134,32 @@ class Paper(FPDF):
 
         self.ln(10)
 
+class Pair():
+    def __init__(self, QP_path: str, MS_path: str):
+        self.QP_path = QP_path
+        self.MS_path = MS_path
+
+        self.seed = gen_seed()
+
+        self.QP = Paper(self.seed)
+        self.QP.add_cover("Question Paper")  # TODO: Show current day functionality?
+
+        self.MS = Paper(self.seed)
+        self.MS.add_cover("Mark Scheme")
+
+    def output(self):
+        self.QP.output(self.QP_path)  # TODO: Add path variable to Paper class
+        self.MS.output(self.MS_path)
+
+    def add_question(self, quesion_name):
+        # TODO: Make this fetch from REGISTRY at later date
+        pass
+
+def gen_seed():
+    seed = np.random.randint(100_000, 1_000_000)
+    return seed
 
 if __name__ == "__main__":
-    worksheet = Paper()
-    worksheet.add_cover()
+    test = Pair("output/QP.pdf", "output/MS.pdf")
 
-    worksheet.output("output/test.pdf")
+    test.output()

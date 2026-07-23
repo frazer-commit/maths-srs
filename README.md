@@ -36,9 +36,9 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
 
 ## Roadmap
 
-- [ ] **v1.0 Basic Structure**
-  - [ ] Markscheme class
-  - [ ] Pair (Quesiton Paper + Markscheme) class
+- [x] **v1.0 Basic Structure**
+  - [x] Paper class
+  - [x] Pair (Quesiton Paper + Markscheme) class
 
 - [ ] **v1.1 Question generation**
   - [ ] Question template
