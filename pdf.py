@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import copy
 
-class PDF(FPDF):
+class QP(FPDF):
     def __init__(self, seed=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -131,12 +131,7 @@ class PDF(FPDF):
 
 
 if __name__ == "__main__":
-    worksheet = PDF()
+    worksheet = QP()
     worksheet.add_cover()
-    worksheet.write_question(addition, 2, func_params={"n1": 1})
-    worksheet.write_question(addition, 2)
-    worksheet.write_question(addition, 2)
-    worksheet.write_question(addition, 2)
-    worksheet.write_question(addition, 2)
 
     worksheet.output("output/test.pdf")
