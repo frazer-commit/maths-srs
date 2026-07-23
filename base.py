@@ -42,7 +42,8 @@ if __name__ == "__main__":
 
     test = Pair("output/QP.pdf", "output/MS.pdf")
     
-    test.QP.write_question(BaseQuestion.add_q, 1)
-    test.MS.write_question(BaseQuestion.add_a, 1)
+    for _ in range(10):
+        test.QP.write_question(BaseQuestion.add_q, 1)
+        test.MS.write_question(BaseQuestion.add_a, 1)
 
     test.output()
