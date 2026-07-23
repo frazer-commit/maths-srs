@@ -57,4 +57,6 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
   - [ ] Day generation
   - [ ] Concept heirarchies
 
-**AI Usage**: All code was written by myself. Generative AI was used soley for code suggestions and bug finding.
+## AI Note
+
+All code was written by **myself**. Generative AI was used **soley** for code suggestions and bug finding.
