@@ -40,11 +40,11 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
   - [x] Paper class
   - [x] Pair (Quesiton Paper + Markscheme) class
 
-- [ ] **v1.1 Question generation**
+- [x] **v1.1 Question generation**
   - [x] Question template
-  - [ ] 2 Initial questions (addition, multiplication)
-    - [ ] Question generation in Matplotlib
-    - [ ] Answer generation in Matplotlib
+  - [x] 2 Initial questions
+    - [x] Question generation
+    - [x] Answer generation
 
 - [ ] **v1.2 Classificaiton**
   - [ ] Registry for question

@@ -35,7 +35,18 @@ class BaseQuestion:
         cls.question(pdf, ops)
 
         if workings:
+            pdf.set_text_color(255, 0, 0)
+            pdf.set_font(style="B")
+            
+            pdf.set_draw_color(255, 0, 0)
+            pdf.set_line_width(0.5)
+
             cls.workings(pdf, ops)
+
+            pdf.set_text_color(0, 0, 0)
+            pdf.set_draw_color(0, 0, 0)
+            pdf.set_line_width(0.2)
+
         else:
             pdf.ln(cls.workings_height)
     
