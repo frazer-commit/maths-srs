@@ -1,3 +1,21 @@
+# Quesiton Template
+"""
+class NAME_HERE(BaseQuestion):
+    marks = 
+    dependencies = ()
+    workings_height = 
+
+    ops_ranges = ((x, y), (x, y))
+
+    @classmethod
+    def question_details(cls, pdf, ops):
+        pass
+
+    @classmethod
+    def workings(cls, pdf, ops):
+        pass
+"""
+
 class BaseQuestion:
     marks = 1
     dependencies = ()
@@ -11,37 +29,39 @@ class BaseQuestion:
         return ops
 
     @classmethod
-    def add_question(cls, pdf, space=True):
+    def insert(cls, pdf, workings=False):
         ops = cls.gen_ops(pdf)
 
-        cls.question_detail(pdf, ops)
+        cls.question(pdf, ops)
 
-        if space:
+        if workings:
+            cls.workings(pdf, ops)
+        else:
             pdf.ln(cls.workings_height)
     
     @classmethod
-    def question_detail(cls, pdf, ops):
+    def question(cls, pdf, ops):
         pdf.cell(0, 10, f"Example question {ops[0]} {ops[1]}")
 
     @classmethod
-    def workings(cls, pdf):
+    def workings(cls, pdf, ops):
         pdf.ln(15)
 
         pdf.set_text_color(255, 0, 0)
         
-        pdf.set_x(pdf.w-pdf.r_margin-pdf.get_string_width("Example answer"))
+        answer = f"Example answer {ops[0]}"
 
-        pdf.cell(0, 10, "Example answer")
+        pdf.set_x(pdf.w-pdf.r_margin-pdf.get_string_width(answer))
+
+        pdf.cell(0, 10, answer)
 
         pdf.set_text_color(0, 0, 0)
 
     @classmethod
     def write(cls, qp, ms):
-        qp.write_question(cls.add_question, cls.marks)  # TODO: Rename write_question to question format or similar
+        qp.write_question(cls.insert, cls.marks)  # TODO: Rename write_question to question format or similar
 
-        ms_func = lambda x: (cls.add_question(x, space=False), cls.workings(x))
-
-        ms.write_question(ms_func, cls.marks)
+        ms.write_question(cls.insert, cls.marks, func_params={"workings": True})
 
 if __name__ == "__main__":
     from paper import Pair
