@@ -1,27 +1,30 @@
 class BaseQuestion:
     marks = 1
     dependencies = ()
-    
+    workings_height = 15
+
+    ops_ranges = ((1, 10), (1, 10))
+
     @classmethod
     def gen_ops(cls, pdf):
-        ops = [
-            pdf.rng.integers(1, 10),
-            pdf.rng.integers(1, 10)
-        ]
+        ops = [pdf.rng.integers(*r) for r in cls.ops_ranges]
         return ops
 
     @classmethod
-    def add_q(cls, pdf):
+    def add_question(cls, pdf, space=True):
         ops = cls.gen_ops(pdf)
-        pdf.cell(0, 10, f"Example question {ops[0]} {ops[1]}")
 
-        pdf.ln(15)
+        cls.question_detail(pdf, ops)
+
+        if space:
+            pdf.ln(cls.workings_height)
+    
+    @classmethod
+    def question_detail(cls, pdf, ops):
+        pdf.cell(0, 10, f"Example question {ops[0]} {ops[1]}")
 
     @classmethod
-    def add_a(cls, pdf):
-        ops = cls.gen_ops(pdf)
-        pdf.cell(0, 10, f"Example question {ops[0]} {ops[1]}")
-
+    def workings(cls, pdf):
         pdf.ln(15)
 
         pdf.set_text_color(255, 0, 0)
@@ -34,8 +37,11 @@ class BaseQuestion:
 
     @classmethod
     def write(cls, qp, ms):
-        cls.add_q(qp)
-        cls.add_a(ms)
+        qp.write_question(cls.add_question, cls.marks)  # TODO: Rename write_question to question format or similar
+
+        ms_func = lambda x: (cls.add_question(x, space=False), cls.workings(x))
+
+        ms.write_question(ms_func, cls.marks)
 
 if __name__ == "__main__":
     from paper import Pair
@@ -43,7 +49,6 @@ if __name__ == "__main__":
     test = Pair("output/QP.pdf", "output/MS.pdf")
     
     for _ in range(10):
-        test.QP.write_question(BaseQuestion.add_q, 1)
-        test.MS.write_question(BaseQuestion.add_a, 1)
+        BaseQuestion.write(test.QP, test.MS)
 
     test.output()
