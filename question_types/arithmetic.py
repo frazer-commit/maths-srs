@@ -1,7 +1,9 @@
 from base import BaseQuestion
 from paper import Pair
 import numpy as np
+from . import register
 
+@register
 class Addition1(BaseQuestion):
     marks = 1
     dependencies = ()
@@ -29,7 +31,7 @@ class Addition1(BaseQuestion):
 
         pdf.cell(0, 10, answer)
 
-
+@register
 class Addition2(Addition1):
     marks = 2
     dependencies = (Addition1)
