@@ -46,16 +46,20 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
     - [x] Question generation
     - [x] Answer generation
 
-- [ ] **v1.2 Classificaiton**
-  - [ ] Registry for question
-  - [ ] JSON settings
-  - [ ] Pandas timestamp saving
-  - [ ] Writing to CSV
+- [x] **v1.2 Classificaiton**
+  - [x] Registry for question
+  - [x] JSON settings
+  - [x] Writing to CSV
 
 - [ ] **v1.3 First Spaced Repetition**
-  - [ ] Ease factor for questions
+  - [ ] Timestamp for due dates of questions
+  - [ ] More questions
   - [ ] Day generation
-  - [ ] Concept heirarchies
+  - [ ] Spaced Repetition Algorithm
+
+- [ ] **v1.4 Other**
+  - [ ] tkinter interface for marking
+  - [ ] Dependency heirarchies in algorithm
 
 ## AI Note
 
