@@ -6,7 +6,7 @@ from . import register
 @register
 class Addition1(BaseQuestion):
     marks = 1
-    dependencies = ()
+    dependencies = []
     workings_height = 30
 
     ops_ranges = ((2, 11), (2, 11))
@@ -34,7 +34,7 @@ class Addition1(BaseQuestion):
 @register
 class Addition2(Addition1):
     marks = 2
-    dependencies = (Addition1)
+    dependencies = [Addition1]
     workings_height = 60
 
     ops_ranges = ((100, 1000), (100, 1000))
