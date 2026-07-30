@@ -1,6 +1,6 @@
 # Maths SRS
 
-Daily worksheet and markscheme generator for maths questions using spaced repetition to prevent forgeting concepts.
+Daily worksheet and markscheme generator for maths questions using spaced repetition to prevent forgetting concepts.
 
 ## Getting started
 
@@ -27,7 +27,7 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
     .venv/Scripts/activate
     ```
 
-3. Inststall dependencies
+3. Install dependencies
   ```bash
   pip install -r requirements.txt
   ```
@@ -46,7 +46,7 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
     - [x] Question generation
     - [x] Answer generation
 
-- [x] **v1.2 Classificaiton**
+- [x] **v1.2 Classification**
   - [x] Registry for question
   - [x] JSON settings
   - [x] Writing to CSV
@@ -59,7 +59,7 @@ Daily worksheet and markscheme generator for maths questions using spaced repeti
 
 - [ ] **v1.4 Other**
   - [ ] tkinter interface for marking
-  - [ ] Dependency heirarchies in algorithm
+  - [ ] Dependency hierarchies in algorithm
 
 ## AI Note
 
